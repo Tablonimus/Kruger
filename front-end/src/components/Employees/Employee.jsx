@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Modal } from "flowbite-react";
 import { useDispatch } from "react-redux";
+
 import { patchUser } from "../../redux/actions";
+import dele from "../../assets/images/dele.png";
+import edit from "../../assets/images/edit.png";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Employee({
   adress,
@@ -15,6 +19,7 @@ export default function Employee({
   vaccines,
 }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [newUser, setNewUser] = useState({
     identification: identification,
@@ -34,6 +39,9 @@ export default function Employee({
   });
 
   function handleChange({ target: { name, value } }) {
+    console.log(name, value);
+    setNewUser({ ...newUser, [name]: value });
+    console.log(newUser.birthdate);
     if (name === "identification") {
       if (value.length < 10) setError({ ...error, identification: true });
 
@@ -75,8 +83,6 @@ export default function Employee({
       if (value.length >= 3 && value.match("^[a-zA-Z ]+$"))
         setError({ ...error, last_name: false });
     }
-
-    setNewUser({ ...newUser, [name]: value });
   }
 
   function handleSubmit(e) {
@@ -86,8 +92,13 @@ export default function Employee({
       last_name: newUser.last_name,
       email: newUser.email,
       password: newUser.identification,
+      birthdate: newUser.birthdate,
+      adress: newUser.adress,
+      phone: newUser.phone,
     };
     dispatch(patchUser(payload));
+   
+    dispatch(patchUser(payload)).then(navigate("/employees"));
   }
 
   const [modal, setModal] = useState(false);
@@ -107,22 +118,33 @@ export default function Employee({
     dispatch(patchUser(payload));
   }
   return (
-    <div className="bg-gray-200 flex flex-col p-2 font-bold">
-      <span>
-        {name} {last_name}
-      </span>
-      <span>{adress}</span>
-      <span>{birthdate}</span>
-      <span>{email}</span>
-      <span>{identification}</span>
-      <span>{phone}</span>
-      <span>{vaccination_status}</span>
-      <span>{vaccines}</span>
+    <div className="bg-gray-200 rounded-lg shadow-lg flex flex p-2 font-bold">
+      <div className="flex flex-col">
+        <span>
+          {name} {last_name}
+        </span>
+        <span>{adress}</span>
+        <span>Birth:{birthdate}</span>
+        <span>{email}</span>
+        <span>{identification}</span>
+        <span>{phone}</span>
+        <span>{vaccination_status}</span>
+        <span>{vaccines}</span>
+      </div>
+
       <React.Fragment>
-        <button onClick={onClick} className="m-1 bg-amber-200">
-          Edit Info
+        <button
+          onClick={onClick}
+          className="flex items-center justify-center m-1 w-24  rounded-lg  p-2 bg-yellow-200 opacity-60 hover:opacity-100 hover:bg-yellow-300"
+        >
+          <img src={edit} alt="" className="w-6" />
+          Edit
         </button>
-        <button onClick={onDelete} className=" m-1 bg-red-600 hover:bg-red-500">
+        <button
+          onClick={onDelete}
+          className="flex items-center justify-center m-1 w-24  rounded-lg  p-2 bg-red-600 opacity-60 hover:opacity-100 hover:bg-red-500"
+        >
+          <img src={dele} alt="" className="w-6" />
           Delete
         </button>
         <Modal
@@ -315,13 +337,13 @@ export default function Employee({
                   </div>
                   <div className="flex gap-1">
                     <div>
-                      <label htmlFor="birth" className="font-semibold">
+                      <label htmlFor="birthdate" className="font-semibold">
                         Birth:
                       </label>
                       <input
                         type="date"
-                        id="birth"
-                        name="birth"
+                        id="birthdate"
+                        name="birthdate"
                         placeholder={birthdate || "-"}
                         className="rounded-lg shadow-lg "
                         onChange={(e) => handleChange(e)}

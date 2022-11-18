@@ -79,6 +79,7 @@ export function createUser(payload) {
 //-----------Edit User---------
 export function patchUser(payload) {
   return async function (dispatch) {
+    console.log("payload",payload);
     try {
       let json = await axios.patch("http://localhost:3001/user/edit", payload);
 
@@ -93,3 +94,22 @@ export function patchUser(payload) {
     }
   };
 }
+export function logout() {
+  return async function (dispatch) {
+
+    try {
+   
+
+      dispatch({
+        type: action.CLEAR_STATE,
+     
+      });
+
+      return "loged out";
+    } catch (error) {
+      return "Server Error, try again later";
+    }
+  };
+}
+
+

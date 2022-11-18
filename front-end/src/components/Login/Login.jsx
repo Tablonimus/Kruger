@@ -2,13 +2,17 @@ import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/actions";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import NavBar from "../NavBar/NavBar"
 
 export default function Login() {
+  const loggedUser = useSelector(state=>state.loggedUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+  if (loggedUser) navigate("/home")
 
   const [user, setUser] = useState({
     email: "",

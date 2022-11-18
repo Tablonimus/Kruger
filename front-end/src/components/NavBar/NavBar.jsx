@@ -14,11 +14,17 @@ export default function NavBar() {
   function signOutHandler() {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
+    localStorage.removeItem("loggeduser");
+    
     navigate("/");
   }
 
+  function profileHandler(){
+    navigate("/profile");
+  }
+
   return (
-    <Navbar fluid={true} rounded={true} className="w-screen fixed top-0">
+    <Navbar fluid={true} rounded={true} className="w-screen fixed top-0 z-30">
       <Navbar.Brand href="">
         <img src={redcross} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
@@ -39,8 +45,8 @@ export default function NavBar() {
             </span>
           </Dropdown.Header>
           <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
+          <Dropdown.Item onClick={profileHandler}>Profile</Dropdown.Item>
+          {/* <Dropdown.Item>Earnings</Dropdown.Item> */}
           <Dropdown.Divider />
           <Dropdown.Item onClick={signOutHandler}>Sign out</Dropdown.Item>
         </Dropdown>

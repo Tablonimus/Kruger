@@ -4,10 +4,15 @@ import { getAllEmployees } from "../../redux/actions";
 import NavBar from "../NavBar/NavBar";
 import AdminBar from "../NavBar/AdminBar";
 import Employee from "./Employee";
+import { useNavigate } from "react-router-dom";
 
 export default function Employees() {
-  const loggedUser = useSelector((state) => state.loggedUser);
+
+  const navigate = useNavigate()
   const dispatch = useDispatch();
+  const loggedUser = useSelector(state=>state.loggedUser)
+   if (!loggedUser) navigate ("/")
+
   useEffect(() => {
     dispatch(getAllEmployees());
   }, []);
@@ -26,7 +31,7 @@ export default function Employees() {
                   key={employee.identification}
                   id={employee.id}
                   adress={employee.adress}
-                  bithdate={employee.bithdate}
+                  birthdate={employee.birthdate}
                   email={employee.email}
                   identification={employee.identification}
                   last_name={employee.last_name}

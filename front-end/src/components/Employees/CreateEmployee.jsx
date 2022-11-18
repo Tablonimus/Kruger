@@ -5,10 +5,13 @@ import NavBar from "../NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../redux/actions";
 import AdminBar from "../NavBar/AdminBar";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateEmployee() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  const loggedUser = useSelector((state) => state.loggedUser);
+  const loggedUser = useSelector(state=>state.loggedUser)
+   if (!loggedUser) navigate ("/")
 
 
   const registeredUsers = useSelector((state) => state.employees);
@@ -102,7 +105,7 @@ export default function CreateEmployee() {
   return (
     <div className="flex flex-col items-center justify-center h-screen w-screen">
       <NavBar />
-      <div className="bg-amber-500 w-96 h-96 rounded-lg flex flex-col items-center justify-center shadow-lg">
+      <div className="bg-blue-200 opacity-80 w-96 h-96 rounded-lg flex flex-col items-center justify-center shadow-lg">
         <form
           action=""
           onSubmit={(e) => handleSubmit(e)}
