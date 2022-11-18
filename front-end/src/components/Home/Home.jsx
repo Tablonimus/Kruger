@@ -2,16 +2,16 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import { messaging } from "../../firebase";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import Login from "../Login/Login";
+
 import NavBar from "../NavBar/NavBar";
 import { useSelector } from "react-redux";
 import AdminBar from "../NavBar/AdminBar";
 import "./Home.css";
-import ph1 from "../../assets/images/ph1.jpg";
+
 import vac from "../../assets/images/vac.png";
 
 export default function Home() {

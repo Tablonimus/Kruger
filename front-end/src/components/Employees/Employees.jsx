@@ -19,26 +19,25 @@ export default function Employees() {
       <NavBar />
       <h5>4646</h5>
       <div className="grid grid-cols-2 gap-5  p-2 w-full h-full">
-        
-        {employees?.length>0?employees?.map((employee) => {
-          return (
-          
-              <Employee
-                key={employee.identification}
-                id={employee.id}
-                adress={employee.adress}
-                bithdate={employee.bithdate}
-                email={employee.email}
-                identification={employee.identification}
-                last_name={employee.last_name}
-                name={employee.name}
-                phone={employee.phone}
-                vaccination_status={employee.vaccination_status}
-                vaccines={employee.vaccines}
-              />
-         
-          );
-        }):false}
+        {employees?.length > 0
+          ? employees?.map((employee) => {
+              return (
+                <Employee
+                  key={employee.identification}
+                  id={employee.id}
+                  adress={employee.adress}
+                  bithdate={employee.bithdate}
+                  email={employee.email}
+                  identification={employee.identification}
+                  last_name={employee.last_name}
+                  name={employee.name}
+                  phone={employee.phone}
+                  vaccination_status={employee.vaccination_status}
+                  vaccines={employee.vaccines}
+                />
+              );
+            })
+          : false}
       </div>
       {/* {loggedUser?.admin === true ? <AdminBar /> : false} */}a
     </div>

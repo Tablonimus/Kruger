@@ -1,10 +1,10 @@
 import { React, useState } from "react";
-import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/actions";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import NavBar from "../NavBar/NavBar"
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -38,29 +38,32 @@ export default function Login() {
   }
 
   return (
-    <div className="w-96 bg-blue-500 flex items-center justify-center rounded-lg shadow-lg">
+    <div className="w-full h-screen flex flex-col justify-center items-center rounded-lg shadow-lg">
+      <NavBar/>
       <form
         onSubmit={(e) => handleSubmit(e)}
-        className="flex flex-col items-center justify-center"
+        className="flex flex-col bg-blue-400 w-96 h-56 rounded-lg opacity-70 items-center justify-center"
       >
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="font-bold">Email</label>
         <input
           type="email"
           placeholder="youremail@company.com"
           name="email"
           id="email"
+          className="rounded-lg shadow-lg "
           onChange={(e) => handleChange(e)}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className="font-bold">Password</label>
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="Password"
           name="password"
           id="password"
+          className="rounded-lg shadow-lg "
           onChange={(e) => handleChange(e)}
         />
 
-        <button>Login</button>
+        <button className="font-bold border w-20 h-10 hover:bg-gray-200 rounded mt-5 shadow-lg">Login</button>
       </form>
     </div>
   );
