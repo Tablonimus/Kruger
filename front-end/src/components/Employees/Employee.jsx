@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Button, TextInput, Label, Checkbox } from "flowbite-react";
-import { useDispatch, useSelector } from "react-redux";
-import { createUser, patchUser } from "../../redux/actions";
-import { useNavigate } from "react-router-dom";
+import { Modal } from "flowbite-react";
+import { useDispatch } from "react-redux";
+import { patchUser } from "../../redux/actions";
 
 export default function Employee({
   adress,
@@ -16,10 +15,6 @@ export default function Employee({
   vaccines,
 }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
-
-  const registeredUsers = useSelector((state) => state.employees);
 
   const [newUser, setNewUser] = useState({
     identification: identification,
@@ -30,7 +25,7 @@ export default function Employee({
     adress: adress,
     birthdate: birthdate,
   });
-  console.log(newUser);
+
   const [error, setError] = useState({
     identification: "",
     name: "",

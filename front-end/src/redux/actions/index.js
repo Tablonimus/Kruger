@@ -1,21 +1,43 @@
 import * as action from "../actions/actionTypes";
 import axios from "axios";
-
+import { setAuthToken } from "../../components/BrowserHistory/setAuthToken";
 //----------Login--------
 export function login(payload) {
   return async function (dispatch) {
     try {
-      let json = await axios.post("http://localhost:3001/user/login", payload);
-      localStorage.setItem("loggeduser", JSON.stringify(json.data))
-        dispatch({
-          type: action.LOGIN,
-          payload: json.data,
-        }
-      );
-
-      return "Logged";
+      console.log("payload", payload);
+      await axios
+        .post("http://localhost:3001/user/login", payload)
+        .then((response) => {
+          const token = response.data.data.token;
+          const id = response.data.id.id;
+          localStorage.setItem("token", token);
+          localStorage.setItem("id", id);
+          setAuthToken(token);
+        });
+      return dispatch({
+        type: action.LOGIN,
+        payload,
+      });
     } catch (error) {
-      return "Server Error, try again later";
+      return dispatch({
+        type: action.LOGIN,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+export function getUserProfile(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`http://localhost:3001/user/${id}`);
+      return dispatch({
+        type: action.GET_USER_PROFILE,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 }

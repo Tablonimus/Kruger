@@ -8,7 +8,7 @@ import AdminBar from "../NavBar/AdminBar";
 
 export default function CreateEmployee() {
   const dispatch = useDispatch();
-  const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
+  const loggedUser = useSelector((state) => state.loggedUser);
 
 
   const registeredUsers = useSelector((state) => state.employees);
@@ -212,7 +212,7 @@ export default function CreateEmployee() {
           )}
         </form>
       </div>
-      {loggedUser[0]?.admin === true ? <AdminBar /> : false}
+      {loggedUser?.admin === true ? <AdminBar /> : false}
     </div>
   );
 }

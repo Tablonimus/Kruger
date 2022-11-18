@@ -8,18 +8,14 @@ import list from "../../assets/images/list.png";
 export default function AdminBar() {
   const navigate = useNavigate();
 
-  // const loggedstate = useSelector(state => state.loggedUser)
+  //  const loggedUser = useSelector(state => state.loggedUser)
   // const loggedUser = loggedstate[0]
   // console.log("estado global", loggedUser);
-  const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
+  //const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
 
-  function signOutHandler() {
-    localStorage.removeItem("loggeduser");
-    navigate("/login");
-  }
 
   return (
-    <div className="bg-amber-600 h-24 w-screen flex   items-center justify-center fixed bottom-0 rounded-t-lg gap-2 ">
+    <div className="bg-gray-200 opacity-50 h-24 w-screen flex   items-center justify-center fixed bottom-0 rounded-t-lg gap-2 ">
       <Link to="/create" className="h-full hover:bg-gray-200 flex flex-col items-center justify-center font-bold ">
         <img src={add} alt="" />
         Add 

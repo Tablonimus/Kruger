@@ -9,46 +9,33 @@ import sett from "../../assets/images/sett.png";
 export default function NavBar() {
   const navigate = useNavigate();
 
-  // const loggedstate = useSelector(state => state.loggedUser)
-  // const loggedUser = loggedstate[0]
-  // console.log("estado global", loggedUser);
-  const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
-
+  const loggedUser = useSelector((state) => state.loggedUser);
 
   function signOutHandler() {
-    localStorage.removeItem("loggeduser");
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
     navigate("/");
   }
 
   return (
     <Navbar fluid={true} rounded={true} className="w-screen fixed top-0">
       <Navbar.Brand href="">
-        <img
-          src={redcross}
-          className="mr-3 h-6 sm:h-9"
-          alt="Flowbite Logo"
-        />
+        <img src={redcross} className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           Covid19-App
         </span>
       </Navbar.Brand>
-      <Navbar.Toggle  />
+      <Navbar.Toggle />
       <div className="flex md:order-2">
         <Dropdown
           arrowIcon={true}
           inline={true}
-          label={
-            <Avatar
-              alt="User settings"
-              img={sett}
-              rounded={true}
-            />
-          }
+          label={<Avatar alt="User settings" img={sett} rounded={true} />}
         >
           <Dropdown.Header>
-            <span className="block text-sm">{loggedUser[0]?.name}</span>
+            <span className="block text-sm">{loggedUser.name}</span>
             <span className="block truncate text-sm font-medium">
-              {loggedUser[0]?.email}
+              {loggedUser.email}
             </span>
           </Dropdown.Header>
           <Dropdown.Item>Dashboard</Dropdown.Item>
@@ -57,10 +44,8 @@ export default function NavBar() {
           <Dropdown.Divider />
           <Dropdown.Item onClick={signOutHandler}>Sign out</Dropdown.Item>
         </Dropdown>
-   
       </div>
       <Navbar.Collapse>
-       
         <Navbar.Link href="/home">Home</Navbar.Link>
         <Navbar.Link href="/navbars">Services</Navbar.Link>
         <Navbar.Link href="/navbars">Pricing</Navbar.Link>

@@ -1,13 +1,19 @@
 import * as action from "../redux/actions/actionTypes";
 
 const initialState = {
-  loggedUser: [],
+  loggedUser: {},
   employees: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
     case action.LOGIN: {
+      return {
+        ...state,
+      
+      };
+    }
+    case action.GET_USER_PROFILE: {
       return {
         ...state,
         loggedUser: payload,
