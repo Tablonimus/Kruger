@@ -29,8 +29,8 @@ export default function Login() {
         console.log("review input data");
       } else {
         dispatch(login(user));
-    
-        setTimeout(()=>navigate("/home"),[2000]);
+
+        setTimeout(() => navigate("/home"), [2000]);
       }
     } catch (error) {
       console.log(error);
@@ -38,13 +38,11 @@ export default function Login() {
   }
 
   return (
-    <div className="w-11/12 lg:w-1/3 h-56 bg-orange-200 flex flex-col items-center justify-center rounded-lg shadow-lg">
-      {/* {error ? (
-        <span>La contraseña debe tener al menos 7 caracteres</span>
-      ) : (
-        false
-      )} */}
-      <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col ">
+    <div className="w-96 bg-blue-500 flex items-center justify-center rounded-lg shadow-lg">
+      <form
+        onSubmit={(e) => handleSubmit(e)}
+        className="flex flex-col items-center justify-center"
+      >
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -63,24 +61,7 @@ export default function Login() {
         />
 
         <button>Login</button>
-        {/* <a href="#!" onClick={handleForgot}>
-          recuperar contraseña
-        </a> */}
       </form>
-      {/* 
-      <button onClick={handleGoogleLogin}>GOOGLE poner G</button>
-      <button
-        onClick={handleFacebookLogin}
-        className="bg-blue-400 w-24 h-24 m-5"
-      >
-        facebook
-      </button>
-      <button
-        onClick={handleTwitterLogin}
-        className="bg-blue-200 w-24 h-24 m-5"
-      >
-        TWITTER
-      </button> */}
     </div>
   );
 }

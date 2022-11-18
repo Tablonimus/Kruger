@@ -8,7 +8,6 @@ import AnimatedRoutes from "./AnimatedRoutes";
 import Home from "./components/Home/Home";
 import { AnimatePresence } from "framer-motion";
 import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
 
 // import { AuthProvider } from "./context/authContext";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
@@ -26,23 +25,19 @@ function App() {
     dispatch(getAllEmployees());
   }, []);
 
-
-
- 
   return (
     <BrowserRouter>
       {/* <AuthProvider> */}
-    
+
       <Routes /* location={location} key={location.pathname} */>
+        <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/register" element={<Register />} />
+
         <Route path="/employees" element={<Employees />} />
         <Route path="/create" element={<CreateEmployee />} />
       </Routes>
-      <Routes>
-        <Route path="/" element={<Login />} />
-      </Routes>
-      
+      <Routes></Routes>
+
       {/* </AuthProvider> */}
     </BrowserRouter>
   );

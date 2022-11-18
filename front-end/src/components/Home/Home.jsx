@@ -16,8 +16,9 @@ import vac from "../../assets/images/vac.png";
 
 export default function Home() {
   const navigate = useNavigate();
-  const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
-
+  // const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
+  const loggedUser = useSelector(state=>state.loggedUser)
+console.log(loggedUser);
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
       <NavBar />
@@ -39,8 +40,8 @@ export default function Home() {
           </button> */}
         </div>
       )}
-{/* 
-      <div class="container">
+
+      {/* <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="featuredPropBox">

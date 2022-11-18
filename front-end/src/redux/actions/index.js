@@ -6,11 +6,11 @@ export function login(payload) {
   return async function (dispatch) {
     try {
       let json = await axios.post("http://localhost:3001/user/login", payload);
-      localStorage.setItem("loggeduser", JSON.stringify(json.data)).then(
+      localStorage.setItem("loggeduser", JSON.stringify(json.data))
         dispatch({
           type: action.LOGIN,
           payload: json.data,
-        })
+        }
       );
 
       return "Logged";
