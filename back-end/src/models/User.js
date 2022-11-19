@@ -43,18 +43,22 @@ module.exports = (sequelize) => {
       vaccination_status: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
+        defaultValue: false,
       },
 
-      vaccines: {
-        type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING)), // [["a","b","v"],["a","b","v"]]
+      vaccine_type: {
+        type: DataTypes.STRING,
         allowNull: true,
-        // get: function () {
-        //   return JSON.parse(this.getDataValue("myArrayField"));
-        // },
-        // set: function (val) {
-        //   return this.setDataValue("myArrayField", JSON.stringify(val));
-        // },
       },
+      vaccine_dose: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      vaccine_date: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+
       employe: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
@@ -63,7 +67,7 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
-      deleted:{
+      deleted: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },

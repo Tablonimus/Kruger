@@ -43,6 +43,7 @@ router.post("/create", async (req, res) => {
 });
 //-------
 router.patch("/edit", async (req, res) => {
+  console.log("body:", req.body);
   const {
     identification,
     name,
@@ -52,6 +53,10 @@ router.patch("/edit", async (req, res) => {
     phone,
     birthdate,
     deleted,
+    vaccination_status,
+    vaccine_type,
+    vaccine_dose,
+    vaccine_date,
   } = req.body;
   try {
     const user = await patchUser(
@@ -62,7 +67,11 @@ router.patch("/edit", async (req, res) => {
       adress,
       phone,
       birthdate,
-      deleted
+      deleted,
+      vaccination_status,
+      vaccine_type,
+      vaccine_dose,
+      vaccine_date
     );
     res.status(201).json(user);
   } catch (error) {

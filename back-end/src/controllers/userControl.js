@@ -41,7 +41,11 @@ async function patchUser(
   adress,
   phone,
   birthdate,
-  deleted
+  deleted,
+  vaccination_status,
+  vaccine_type,
+  vaccine_dose,
+  vaccine_date,
 ) {
   try {
     const editUser = await User.update(
@@ -54,6 +58,10 @@ async function patchUser(
         phone,
         birthdate,
         deleted,
+        vaccination_status,
+        vaccine_type,
+        vaccine_dose,
+        vaccine_date,
       },
       { where: { identification: identification } }
     );
