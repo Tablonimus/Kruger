@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../Bars/NavBar";
@@ -11,8 +11,16 @@ export default function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.loggedUser);
+
+
+  useEffect(() => {
+    dispatch(getUserProfile(id));
+    if (!loggedUser) window.location.reload(true);
+    // if (!loggedUser) navigate("/");
+  }, []);
+
+
   if (!loggedUser) navigate("/");
-  console.log(loggedUser);
 
   const [newUser, setNewUser] = useState({
     identification: loggedUser?.identification,
