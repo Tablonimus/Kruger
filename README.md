@@ -17,7 +17,7 @@ El usuario "ADMIN" es el primero en ingresar a la aplicación, las credenciales 
 LINK DE DEPLOY = https://covidkruger.vercel.app 
 ------------------------------------------------------
 
-CADA CUENTA CRRADA GENERA AUTOMATICAMENTE EL PASSWORD, QUE ES IGUAL AL NUMERO DE IDENTIFICACIÓN BRIBDADO EN EL FORMULARIO
+CADA CUENTA CREADA GENERA AUTOMATICAMENTE EL PASSWORD, QUE ES IGUAL AL NUMERO DE IDENTIFICACIÓN BRINDADO EN EL FORMULARIO.
 
 
 Una vez ingresado, encontrarás un botón en la barra inferior (función exclusiva de administrador) para agregar usuarios nuevos con una clasificación de "Empleados", los cuales tendrán un acceso limitado a las funciones de la app y también podrás observar un botón que te llevará al listado de empleados(donde podremos ver el estado de vacunación y editar la información personal y básica del empleado)
