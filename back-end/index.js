@@ -20,11 +20,16 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const port = process.env.PORT || 3001;
-// const {loadCountries}= require("../api/src/controllers/countryControl")
-// Syncing all the models at once.
-//loadCountries()
+const {
+  loadAdmin,
+  createUser,
+} = require("../back-end/src/controllers/userControl");
+
+
 conn.sync({ force: false }).then(() => {
+  
   server.listen(port, () => {
     console.log(`Listening at ${port}`); // eslint-disable-line no-console
   });
+  loadAdmin()
 });

@@ -45,7 +45,7 @@ async function patchUser(
   vaccination_status,
   vaccine_type,
   vaccine_dose,
-  vaccine_date,
+  vaccine_date
 ) {
   try {
     const editUser = await User.update(
@@ -92,5 +92,33 @@ const userId = async (id) => {
     console.error(error);
   }
 };
+/////////////LOAD INFO TO DB//////////
+async function loadAdmin() {
+  console.log("Filling DB...");
+  let identification = "0123456789";
+  let name = "Kruger";
+  let last_name = "Admin";
+  let email = "admin@admin.com";
+  let password = "admin";
+  const newAdmin = await User.findOrCreate({
+    where: {
+      identification,
+      name,
+      last_name,
+      email,
+      password,
+    },
+  });
+  console.log(newAdmin);
+  console.log("The Admin has been loaded to DB");
+  console.log("Ready to run...");
+}
 
-module.exports = { createUser, getAllUsers, patchUser, login, userId };
+module.exports = {
+  createUser,
+  getAllUsers,
+  patchUser,
+  login,
+  userId,
+  loadAdmin,
+};
