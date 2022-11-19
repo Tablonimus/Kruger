@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
+import NavBar from "../Bars/NavBar";
 import edit from "../../assets/images/edit.png";
 import profile from "../../assets/images/profile.png";
 import { patchUser } from "../../redux/actions";
@@ -12,6 +12,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.loggedUser);
   if (!loggedUser) navigate("/");
+  console.log(loggedUser);
 
   const [newUser, setNewUser] = useState({
     identification: loggedUser?.identification,
@@ -109,7 +110,9 @@ export default function Profile() {
       adress: newUser.adress,
       phone: newUser.phone,
       vaccination_status: status,
-      vaccines: [[vaccines.type, vaccines.dose, vaccines.date]],
+      vaccine_type: vaccines.type,
+      vaccine_date: vaccines.date,
+      vaccine_dose: vaccines.dose,
     };
 
     dispatch(patchUser(payload)).then(navigate("/profile"));
@@ -143,11 +146,11 @@ export default function Profile() {
           </span>
           <span className="flex font-semibold">
             <span className="mr-2">Vaccine: </span>
-            {loggedUser.vaccines ? (
+            {loggedUser.vaccination_status===true ? (
               <div className="flex flex-col">
-                <span>Type: {loggedUser.vaccines[0][0]}</span>
-                <span>Dose: {loggedUser.vaccines[0][1]}</span>
-                <span>Date: {loggedUser.vaccines[0][2]}</span>
+                <span>Type: {loggedUser.vaccine_type}</span>
+                <span>Dose: {loggedUser.vaccine_dose}</span>
+                <span>Date: {loggedUser.vaccine_date}</span>
               </div>
             ) : (
               <span className="text-red-500 font-bold">Not vaccined</span>
@@ -374,9 +377,9 @@ export default function Profile() {
                             </label>
                             <input
                               type="date"
-                              id="birthdate"
-                              name="birthdate"
-                              placeholder={loggedUser.birthdate || "-"}
+                              id="vaccinationdate"
+                              name="vaccinationdate"
+                              // placeholder={loggedUser.birthdate || "-"}
                               className="rounded-lg shadow-lg w-32 h-8"
                               onChange={(e) =>
                                 setVaccines({

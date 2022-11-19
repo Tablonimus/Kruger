@@ -1,13 +1,16 @@
 import React from "react";
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import redcross from "../../assets/images/redcross.jpg";
 
 import sett from "../../assets/images/sett.png";
+import home from "../../assets/images/home.png";
+import { logout } from "../../redux/actions";
 
 export default function NavBar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const loggedUser = useSelector((state) => state.loggedUser);
 
@@ -15,12 +18,16 @@ export default function NavBar() {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
     localStorage.removeItem("loggeduser");
-    
+    dispatch(logout())
+
     navigate("/");
   }
 
-  function profileHandler(){
+  function profileHandler() {
     navigate("/profile");
+  }
+  function dashboardHandler(){
+    navigate("/home")
   }
 
   return (
@@ -44,7 +51,7 @@ export default function NavBar() {
               {loggedUser.email}
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
+          <Dropdown.Item onClick={dashboardHandler}>Dashboard</Dropdown.Item>
           <Dropdown.Item onClick={profileHandler}>Profile</Dropdown.Item>
           {/* <Dropdown.Item>Earnings</Dropdown.Item> */}
           <Dropdown.Divider />
@@ -52,10 +59,10 @@ export default function NavBar() {
         </Dropdown>
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="/home">Home</Navbar.Link>
-        <Navbar.Link href="/navbars">Services</Navbar.Link>
+        <Navbar.Link href="/home"><img src={home} alt="" className="w-8" /> Home</Navbar.Link>
+        {/* <Navbar.Link href="/navbars">Services</Navbar.Link>
         <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-        <Navbar.Link href="/navbars">Contact</Navbar.Link>
+        <Navbar.Link href="/navbars">Contact</Navbar.Link> */}
       </Navbar.Collapse>
     </Navbar>
   );

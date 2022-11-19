@@ -1,7 +1,76 @@
 import * as action from "../actions/actionTypes";
 import axios from "axios";
 import { setAuthToken } from "../../components/BrowserHistory/setAuthToken";
-//----------Login--------
+
+//-----------Filters--------------
+export function filter(payload) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get("http://localhost:3001/user/employees");
+     
+      if (payload.type.length > 1 && payload.dose.length > 0) {
+        let filtered = json.data.filter(
+          (employee) =>
+            employee.vaccine_type === payload.type &&
+            employee.vaccine_dose === payload.dose
+        );
+
+        if (filtered.length) {
+          return dispatch({
+            type: action.FILTERS,
+            payload: filtered,
+          });
+        } else {
+          return alert("No matched data"), getAllEmployees();
+        }
+      }
+      if (payload.type.length >= 1 && !payload.dose.length >= 1) {
+    
+        let filtered = json.data.filter(
+          (employee) => employee.vaccine_type === payload.type
+        );
+
+        if (filtered.length) {
+          return dispatch({
+            type: action.GET_ALL_EMPLOYEES,
+            payload: filtered,
+          });
+        } else {
+          return alert("No data found");
+        }
+      }
+      if (!payload.type.length >= 1 && payload.dose.length >= 1) {
+    
+        let filtered = json.data.filter(
+          (employee) => employee.vaccine_dose === payload.dose
+        );
+
+        if (filtered.length) {
+          return dispatch({
+            type: action.GET_ALL_EMPLOYEES,
+            payload: filtered,
+          });
+        } else {
+          return alert("No data found");
+        }
+      }
+    } catch (error) {
+      return "Server Error, try again later";
+    }
+  };
+}
+
+export function orderByDate(payload) {
+  if (payload.preDate === undefined || payload.postDate === undefined) {
+    return alert("Undefined dates");
+  }
+  return {
+    type: action.ORDER_BY_DATE,
+    payload,
+  };
+}
+
+//----------Login----------------
 export function login(payload) {
   return async function (dispatch) {
     try {
@@ -27,7 +96,7 @@ export function login(payload) {
     }
   };
 }
-
+//-----------Get User Profile-----
 export function getUserProfile(id) {
   return async function (dispatch) {
     try {
@@ -41,9 +110,8 @@ export function getUserProfile(id) {
     }
   };
 }
-//------------GET ALL---------
-
-export function getAllEmployees(token) {
+//------------GET ALL------------
+export function getAllEmployees() {
   return async function (dispatch) {
     try {
       let json = await axios.get("http://localhost:3001/user/employees");
@@ -58,11 +126,15 @@ export function getAllEmployees(token) {
     }
   };
 }
-
 //-----------Create User---------
 export function createUser(payload) {
   return async function (dispatch) {
     try {
+      // let verify = await axios.get("http://localhost:3001/user/employees");
+
+      // let verifyed = verify.filter( (user)=> user.identification === payload.identification)
+
+      // if(verifyed.length) return alert("Identification already exists")
       let json = await axios.post("http://localhost:3001/user/create", payload);
 
       dispatch({
@@ -70,16 +142,16 @@ export function createUser(payload) {
         payload: json.data,
       });
 
-      return "Created";
+      return alert("Employee created successfully")
     } catch (error) {
       return "Server Error, try again later";
     }
   };
 }
-//-----------Edit User---------
+//-----------Edit User-----------
 export function patchUser(payload) {
   return async function (dispatch) {
-    console.log("payload",payload);
+    console.log("payload", payload);
     try {
       let json = await axios.patch("http://localhost:3001/user/edit", payload);
 
@@ -94,15 +166,12 @@ export function patchUser(payload) {
     }
   };
 }
+//-----------Logout--------------
 export function logout() {
   return async function (dispatch) {
-
     try {
-   
-
       dispatch({
         type: action.CLEAR_STATE,
-     
       });
 
       return "loged out";
@@ -111,5 +180,3 @@ export function logout() {
     }
   };
 }
-
-

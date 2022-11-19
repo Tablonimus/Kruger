@@ -16,12 +16,13 @@ import Profile from "./components/LoggedUser/Profile";
 function App() {
   //const location = useLocation();
   const dispatch = useDispatch();
+  
   const token = localStorage.getItem("token");
+  const id = localStorage.getItem("id");
 
   if (token) {
     setAuthToken(token);
   }
-  const id = localStorage.getItem("id");
 
   useEffect(() => {
     dispatch(getAllEmployees());

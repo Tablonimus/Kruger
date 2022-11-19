@@ -1,8 +1,10 @@
 import * as action from "../redux/actions/actionTypes";
+import moment from "moment";
 
 const initialState = {
   loggedUser: {},
   employees: [],
+  copyEmployees: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -10,7 +12,6 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case action.LOGIN: {
       return {
         ...state,
-      
       };
     }
     case action.GET_USER_PROFILE: {
@@ -24,6 +25,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         employees: payload,
+        copyEmployees: payload,
       };
     }
 
@@ -43,6 +45,35 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         loggedUser: {},
       };
+    }
+    case action.FILTERS: {
+      return {
+        ...state,
+        employees: payload,
+        copyEmployees: payload,
+      };
+    }
+    case action.ORDER_BY_DATE: {
+      const allemployees = state.copyEmployees;
+      // console.log("aca");
+      // if (payload.preDate === undefined || payload.postDate === undefined) {
+      //   return { ...state ,employees:state.copyEmployees};
+      // }
+      if (payload.preDate !== undefined && payload.postDate !== undefined) {
+        const filteredEmployees = allemployees.filter((employee) =>
+          moment(employee.vaccine_date).isBetween(
+            payload.preDate,
+            payload.postDate
+          )
+        );
+        return {
+          ...state,
+          employees: filteredEmployees,
+        };
+      } else
+        return {
+          ...state,
+        };
     }
 
     default:

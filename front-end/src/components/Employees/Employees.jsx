@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllEmployees } from "../../redux/actions";
-import NavBar from "../NavBar/NavBar";
-import AdminBar from "../NavBar/AdminBar";
+import NavBar from "../Bars/NavBar";
+import AdminBar from "../Bars/AdminBar";
 import Employee from "./Employee";
 import { useNavigate } from "react-router-dom";
+import Filters from "../Bars/Filters";
 
 export default function Employees() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedUser = useSelector(state=>state.loggedUser)
-   if (!loggedUser) navigate ("/")
+  const loggedUser = useSelector((state) => state.loggedUser);
+  if (!loggedUser) navigate("/");
 
   useEffect(() => {
     dispatch(getAllEmployees());
@@ -20,10 +20,12 @@ export default function Employees() {
   const employees = useSelector((state) => state.employees);
 
   return (
-    <div className="mt-14  mb-24">
+    <div className="flex flex-col w-full h-screen items-center">
       <NavBar />
-      <h5>4646</h5>
-      <div className="grid grid-cols-2 gap-5  p-2 w-full h-full">
+
+      <Filters />
+
+      <div className="w-1/2 flex flex-col  items-center justify-center p-24 gap-5">
         {employees?.length > 0
           ? employees?.map((employee) => {
               return (
@@ -38,13 +40,16 @@ export default function Employees() {
                   name={employee.name}
                   phone={employee.phone}
                   vaccination_status={employee.vaccination_status}
-                  vaccines={employee.vaccines}
+                  vaccine_date={employee.vaccine_date}
+                  vaccine_dose={employee.vaccine_dose}
+                  vaccine_type={employee.vaccine_type}
                 />
               );
             })
           : false}
       </div>
-      {/* {loggedUser?.admin === true ? <AdminBar /> : false} */}a
+
+      {loggedUser?.admin === true ? <AdminBar /> : false}
     </div>
   );
 }

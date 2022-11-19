@@ -13,16 +13,21 @@ export default function AdminBar() {
   // console.log("estado global", loggedUser);
   //const loggedUser = JSON.parse(localStorage.getItem("loggeduser"));
 
-
   return (
-    <div className="bg-gray-200 opacity-50 h-24 w-screen flex   items-center justify-center fixed bottom-0 rounded-t-lg gap-2 ">
-      <Link to="/create" className="h-full hover:bg-gray-200 flex flex-col items-center justify-center font-bold ">
+    <div className="bg-gray-200  w-full h-20 flex items-center justify-center fixed bottom-0 rounded-t-lg gap-10 z-20 ">
+      <Link
+        to="/create"
+        className="h-full hover:bg-gray-200 flex flex-col items-center justify-center font-bold "
+      >
         <img src={add} alt="" />
-        Add 
+        {/* Add */}
       </Link>
-      <Link to="/employees"className="h-full hover:bg-gray-200 flex flex-col items-center justify-center font-bold">
+      <Link
+        to="/employees"
+        className="h-full hover:bg-gray-200 flex flex-col items-center justify-center font-bold"
+      >
         <img src={list} alt="" className="" />
-       Employees
+        {/*   Vaccinations */}
       </Link>
     </div>
   );

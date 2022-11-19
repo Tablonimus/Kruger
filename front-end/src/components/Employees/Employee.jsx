@@ -16,7 +16,9 @@ export default function Employee({
   last_name,
   phone,
   vaccination_status,
-  vaccines,
+  vaccine_date,
+  vaccine_dose,
+  vaccine_type
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -97,7 +99,7 @@ export default function Employee({
       phone: newUser.phone,
     };
     dispatch(patchUser(payload));
-   
+
     dispatch(patchUser(payload)).then(navigate("/employees"));
   }
 
@@ -118,44 +120,52 @@ export default function Employee({
     dispatch(patchUser(payload));
   }
   return (
-    <div className="bg-gray-200 rounded-lg shadow-lg flex flex p-2 font-bold">
+    <div className="bg-gray-200 w-96 justify-between rounded-lg shadow-lg flex flex p-5 font-bold">
       <div className="flex flex-col">
         <span>
-          {name} {last_name}
+          Name: {name} {last_name}
         </span>
-        <span>{adress}</span>
-        <span>Birth:{birthdate}</span>
-        <span>{email}</span>
-        <span>{identification}</span>
-        <span>{phone}</span>
-        <span>{vaccination_status}</span>
-        <span>{vaccines}</span>
-      </div>
 
-      <React.Fragment>
+        <span>Email: {email}</span>
+        <span>ID: {identification}</span>
+
+        <span className="flex font-semibold">
+          {vaccination_status ? (
+            <div className="flex flex-col">
+              <span className="text-green-500 text-lg font-bold">Vaccined</span>
+              <span className="text-sm">Type: {vaccine_type}</span>
+              <span className="text-sm">Dose: {vaccine_dose}</span>
+              <span className="text-sm">Date: {vaccine_date}</span>
+            </div>
+          ) : (
+            <span className="text-red-500 text-lg font-bold">Not vaccined</span>
+          )}
+        </span>
+      </div>
+      <div className="flex flex-col justify-between">
         <button
           onClick={onClick}
-          className="flex items-center justify-center m-1 w-24  rounded-lg  p-2 bg-yellow-200 opacity-60 hover:opacity-100 hover:bg-yellow-300"
+          className="flex  items-center justify-center m-1 w-10  rounded-lg  p-2 bg-yellow-200 opacity-60 hover:opacity-100 hover:bg-yellow-300"
         >
           <img src={edit} alt="" className="w-6" />
-          Edit
         </button>
         <button
           onClick={onDelete}
-          className="flex items-center justify-center m-1 w-24  rounded-lg  p-2 bg-red-600 opacity-60 hover:opacity-100 hover:bg-red-500"
+          className="flex items-center justify-center m-1 w-10  rounded-lg  p-2 bg-red-600 opacity-60 hover:opacity-100 hover:bg-red-500"
         >
           <img src={dele} alt="" className="w-6" />
-          Delete
         </button>
+      </div>
+    
         <Modal
           show={modal}
           size="lg"
           popup={true}
           onClose={onClose}
-          className="bg-gray-600"
+          className="bg-gray-600 rounded"
         >
-          <Modal.Header className="bg-amber-500 " />
-          <Modal.Body className="bg-amber-500">
+          <Modal.Header className="bg-blue-400 opacity-80 " />
+          <Modal.Body className="bg-blue-400 opacity-80">
             <div className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8 flex flex-col items-center ">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Edit employee information
@@ -372,7 +382,7 @@ export default function Employee({
             </div>
           </Modal.Body>
         </Modal>
-      </React.Fragment>
+     
     </div>
   );
 }

@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 
 import { TextInput, Label } from "flowbite-react";
-import NavBar from "../NavBar/NavBar";
+import NavBar from "../Bars/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../redux/actions";
-import AdminBar from "../NavBar/AdminBar";
+import AdminBar from "../Bars/AdminBar";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateEmployee() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedUser = useSelector(state=>state.loggedUser)
-   if (!loggedUser) navigate ("/")
-
+  const loggedUser = useSelector((state) => state.loggedUser);
+  if (!loggedUser) navigate("/");
 
   const registeredUsers = useSelector((state) => state.employees);
 
@@ -77,7 +76,7 @@ export default function CreateEmployee() {
   }
 
   function handleSubmit(e) {
-    // e.preventDefault();
+    e.preventDefault();
     if (
       registeredUsers?.filter((match) => match.email === newUser?.email)
         .length > 0
@@ -89,23 +88,24 @@ export default function CreateEmployee() {
       ).length > 0
     ) {
       alert("The Identification number has been previously registered");
+    } else {
+      const payload = {
+        identification: newUser.identification,
+        name: newUser.name,
+        last_name: newUser.last_name,
+        email: newUser.email,
+        password: newUser.identification,
+      };
+      dispatch(createUser(payload));
+      navigate("/home")
     }
-
-    const payload = {
-      identification: newUser.identification,
-      name: newUser.name,
-      last_name: newUser.last_name,
-      email: newUser.email,
-      password: newUser.identification,
-    };
-    dispatch(createUser(payload));
-    alert("Employee created successfully")
   }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen w-screen">
       <NavBar />
-      <div className="bg-blue-200 opacity-80 w-96 h-96 rounded-lg flex flex-col items-center justify-center shadow-lg">
+      <div className="bg-blue-200 opacity-80 w-96  rounded-lg flex flex-col items-center justify-center shadow-lg">
+        <h1 className="font-bold p-5">ADD A NEW EMPLOYEE</h1>
         <form
           action=""
           onSubmit={(e) => handleSubmit(e)}
@@ -205,11 +205,11 @@ export default function CreateEmployee() {
           error.identification === false &&
           error.last_name === false &&
           error.name === false ? (
-            <button className="bg-green-600 opacity-90 hover:bg-green-500 hover:opacity-100 shadow-lg rounded-lg w-24 text-white h-14">
+            <button className="m-5 bg-green-600 opacity-90 hover:bg-green-500 hover:opacity-100 shadow-lg rounded-lg w-24 text-white h-14">
               Register
             </button>
           ) : (
-            <span className="flex items-center justify-center bg-gray-500 shadow-lg rounded-lg w-24 text-white h-14 opacity-70">
+            <span className=" m-5 flex items-center justify-center bg-gray-500 shadow-lg rounded-lg w-24 text-white h-14 opacity-70">
               Register
             </span>
           )}

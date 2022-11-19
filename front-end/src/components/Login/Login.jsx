@@ -1,18 +1,19 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../redux/actions";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import NavBar from "../NavBar/NavBar"
+import { ToastContainer,toast } from "react-toastify";
+
 
 export default function Login() {
-  const loggedUser = useSelector(state=>state.loggedUser)
+  const loggedUser = useSelector((state) => state.loggedUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-  if (loggedUser) navigate("/home")
+  // useEffect(() => {
+  //   if (!loggedUser) {navigate("/")}/* else {navigate("/home")}; */
+  // }, []);
 
   const [user, setUser] = useState({
     email: "",
@@ -33,8 +34,10 @@ export default function Login() {
         console.log("review input data");
       } else {
         dispatch(login(user));
-
-        setTimeout(() => navigate("/home"), [2000]);
+        toast(
+          "Logging to the site"
+        )
+        setTimeout(() => navigate("/home"), [5000]);
       }
     } catch (error) {
       console.log(error);
@@ -43,12 +46,14 @@ export default function Login() {
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center rounded-lg shadow-lg">
-      <NavBar/>
+     <ToastContainer/>
       <form
         onSubmit={(e) => handleSubmit(e)}
         className="flex flex-col bg-blue-400 w-96 h-56 rounded-lg opacity-70 items-center justify-center"
       >
-        <label htmlFor="email" className="font-bold">Email</label>
+        <label htmlFor="email" className="font-bold">
+          Email
+        </label>
         <input
           type="email"
           placeholder="youremail@company.com"
@@ -57,7 +62,9 @@ export default function Login() {
           className="rounded-lg shadow-lg "
           onChange={(e) => handleChange(e)}
         />
-        <label htmlFor="password" className="font-bold">Password</label>
+        <label htmlFor="password" className="font-bold">
+          Password
+        </label>
         <input
           type="password"
           placeholder="Password"
@@ -67,7 +74,9 @@ export default function Login() {
           onChange={(e) => handleChange(e)}
         />
 
-        <button className="font-bold border w-20 h-10 hover:bg-gray-200 rounded mt-5 shadow-lg">Login</button>
+        <button className="font-bold border w-20 h-10 hover:bg-gray-200 rounded mt-5 shadow-lg">
+          Login
+        </button>
       </form>
     </div>
   );
