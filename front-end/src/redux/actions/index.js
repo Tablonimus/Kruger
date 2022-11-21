@@ -7,7 +7,7 @@ export function filter(payload) {
   return async function (dispatch) {
     try {
       let json = await axios.get("http://localhost:3001/user/employees");
-     
+
       if (payload.type.length > 1 && payload.dose.length > 0) {
         let filtered = json.data.filter(
           (employee) =>
@@ -25,7 +25,6 @@ export function filter(payload) {
         }
       }
       if (payload.type.length >= 1 && !payload.dose.length >= 1) {
-    
         let filtered = json.data.filter(
           (employee) => employee.vaccine_type === payload.type
         );
@@ -40,7 +39,6 @@ export function filter(payload) {
         }
       }
       if (!payload.type.length >= 1 && payload.dose.length >= 1) {
-    
         let filtered = json.data.filter(
           (employee) => employee.vaccine_dose === payload.dose
         );
@@ -93,9 +91,8 @@ export function login(payload) {
       //   type: action.LOGIN,
       //   payload: error.response.data,
       // });
-      window.location.reload(true)
-      alert("Incorrect email or password")
-   
+      window.location.reload(true);
+      alert("Incorrect email or password");
     }
   };
 }
@@ -145,7 +142,7 @@ export function createUser(payload) {
         payload: json.data,
       });
 
-      return alert("Employee created successfully")
+      return alert("Employee created successfully");
     } catch (error) {
       return "Server Error, try again later";
     }

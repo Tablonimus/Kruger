@@ -12,18 +12,12 @@ export default function Profile() {
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.loggedUser);
   const id = localStorage.getItem("id");
- 
 
   useEffect(() => {
     dispatch(getUserProfile(id));
     if (!loggedUser) window.location.reload(true);
     // if (!loggedUser) navigate("/");
   }, []);
-
-
-
-
-
 
   const [newUser, setNewUser] = useState({
     identification: loggedUser?.identification,
@@ -157,7 +151,7 @@ export default function Profile() {
           </span>
           <span className="flex font-semibold">
             <span className="mr-2">Vaccine: </span>
-            {loggedUser.vaccination_status===true ? (
+            {loggedUser.vaccination_status === true ? (
               <div className="flex flex-col">
                 <span>Type: {loggedUser.vaccine_type}</span>
                 <span>Dose: {loggedUser.vaccine_dose}</span>
@@ -176,7 +170,7 @@ export default function Profile() {
             <Tooltip content="Edit Profile Info">
               <img src={profile} alt="" className="w-56" />
             </Tooltip>
-           <h5 className="font-bold">Edit Profile</h5>
+            <h5 className="font-bold">Edit Profile</h5>
           </button>
         </div>
         <React.Fragment>
