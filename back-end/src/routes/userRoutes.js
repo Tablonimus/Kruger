@@ -25,7 +25,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 //----------------------------//
-router.post("/create", async (req, res) => {
+router.post("/create",verifyToken, async (req, res) => {
   const { identification, name, last_name, email, password } = req.body;
   try {
     console.log(identification, name, last_name, email, password);
@@ -42,7 +42,7 @@ router.post("/create", async (req, res) => {
   }
 });
 //-------
-router.patch("/edit", async (req, res) => {
+router.patch("/edit",verifyToken, async (req, res) => {
   console.log("body:", req.body);
   const {
     identification,
@@ -79,7 +79,7 @@ router.patch("/edit", async (req, res) => {
   }
 });
 //-------------
-router.get("/employees", async (req, res) => {
+router.get("/employees",verifyToken, async (req, res) => {
   try {
     const data = await getAllUsers();
 
@@ -89,7 +89,7 @@ router.get("/employees", async (req, res) => {
   }
 });
 //OK----------------FIND BY ID--------------------------------------
-router.get("/:id", async (req, res, next) => {
+router.get("/:id",verifyToken, async (req, res, next) => {
   try {
     const user = await userId(req.params.id);
     res.status(200).send(user);

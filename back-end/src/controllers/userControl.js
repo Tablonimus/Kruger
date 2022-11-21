@@ -77,8 +77,9 @@ async function login(email, password) {
   const user = await User.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no encontrado");
   if (user.deleted === true) throw new Error("Usuario baneado");
-  // const passwordIsValid = await user.comparePassword(password, user.password);
-  // if (!passwordIsValid) throw new Error("Contraseña incorrecta");
+  const pass = await User.findOne({ where: { password: password } });
+  if (!pass) throw new Error("Contraseña incorrecta");
+  if (user.deleted === true) throw new Error("Usuario baneado");
   const token = jwt.sign({ id: user.id }, TOKEN_KEY);
   return token;
 }
