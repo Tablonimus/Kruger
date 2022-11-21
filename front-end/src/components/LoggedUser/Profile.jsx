@@ -12,6 +12,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.loggedUser);
   const id = localStorage.getItem("id");
+ 
 
   useEffect(() => {
     dispatch(getUserProfile(id));
@@ -20,17 +21,9 @@ export default function Profile() {
   }, []);
 
 
-  if (!loggedUser) navigate("/");
 
 
-  useEffect(() => {
-    dispatch(getUserProfile(id));
-    if (!loggedUser) window.location.reload(true);
-    // if (!loggedUser) navigate("/");
-  }, []);
 
-
-  if (!loggedUser) navigate("/");
 
   const [newUser, setNewUser] = useState({
     identification: loggedUser?.identification,

@@ -89,10 +89,13 @@ export function login(payload) {
         payload,
       });
     } catch (error) {
-      return dispatch({
-        type: action.LOGIN,
-        payload: error.response.data,
-      });
+      // return dispatch({
+      //   type: action.LOGIN,
+      //   payload: error.response.data,
+      // });
+      window.location.reload(true)
+      alert("Incorrect email or password")
+   
     }
   };
 }
